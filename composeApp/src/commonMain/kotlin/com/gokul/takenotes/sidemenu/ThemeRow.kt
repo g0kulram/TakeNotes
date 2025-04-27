@@ -1,19 +1,12 @@
-package com.gokul.takenotes
+package com.gokul.takenotes.sidemenu
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
@@ -22,33 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-
-@Composable
-fun SideMenuContent(
-    isDarkTheme: Boolean,
-    onThemeToggle: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .width(220.dp)
-            .background(MaterialTheme.colors.surface)
-    ) {
-        Text(
-            text = "Take Notes",
-            color = MaterialTheme.colors.onBackground
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        ThemeRow(
-            isDarkTheme = isDarkTheme,
-            onToggleTheme = onThemeToggle,
-            modifier = Modifier
-        )
-    }
-}
 
 @Composable
 fun ThemeRow(

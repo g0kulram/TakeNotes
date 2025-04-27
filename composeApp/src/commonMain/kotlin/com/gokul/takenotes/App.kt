@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import com.gokul.takenotes.editor.EditorMain
+import com.gokul.takenotes.sidemenu.SideMenuContent
 import com.gokul.takenotes.theme.AppTheme
 import com.gokul.takenotes.theme.LocalThemeController
 import com.gokul.takenotes.theme.ThemeController
