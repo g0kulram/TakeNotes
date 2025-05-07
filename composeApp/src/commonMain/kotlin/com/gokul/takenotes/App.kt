@@ -13,6 +13,7 @@ import com.gokul.takenotes.sidemenu.SideMenuContent
 import com.gokul.takenotes.theme.AppTheme
 import com.gokul.takenotes.theme.LocalThemeController
 import com.gokul.takenotes.theme.ThemeController
+import com.gokul.takenotes.theme.ThemeManager
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -23,21 +24,26 @@ fun App() {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
-    val themeController = remember(controller.value) {
+    val isDark = remember { mutableStateOf(ThemeManager.loadTheme()) }
+
+    val themeController = remember {
         ThemeController(
-            isDark = controller.value,
-            toggle = { controller.value = !controller.value }
+            isDark = isDark,
+            toggle = {
+                isDark.value = !isDark.value
+                ThemeManager.saveTheme(isDark.value)
+            }
         )
     }
 
     CompositionLocalProvider(LocalThemeController provides themeController) {
         AppTheme(
-            darkEnabled = themeController.isDark
+            darkEnabled = themeController.isDark.value
         ) {
             ModalNavigationDrawer(
                 drawerState = drawerState,
                 drawerContent = {
-                    SideMenuContent(isDarkTheme = themeController.isDark) {
+                    SideMenuContent(isDarkTheme = themeController.isDark.value) {
                         themeController.toggle()
                     }
                 }

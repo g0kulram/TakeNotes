@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -45,6 +46,7 @@ fun SideMenuContent(
             modifier = Modifier
                 .windowInsetsPadding(WindowInsets.statusBars)
                 .fillMaxHeight()
+                .widthIn(max = 300.dp)
                 .width(maxWidth * 0.6f)
                 .background(MaterialTheme.colors.surface)
         ) {

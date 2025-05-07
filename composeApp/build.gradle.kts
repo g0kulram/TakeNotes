@@ -71,6 +71,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
