@@ -16,8 +16,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview
 @Composable
+@Preview
 fun AppAndroidPreview() {
     App()
 }

@@ -1,11 +1,13 @@
 package com.gokul.takenotes.theme
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import com.russhwolf.settings.Settings
@@ -57,8 +59,33 @@ fun AppTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (darkEnabled) DarkColorScheme else LightColorScheme
+
+    val backgroundColor by animateColorAsState(colors.background)
+    val onBackgroundColor by animateColorAsState(colors.onBackground)
+    val surfaceColor by animateColorAsState(colors.surface)
+    val primaryColor by animateColorAsState(colors.primary)
+    val onPrimaryColor by animateColorAsState(colors.onPrimary)
+
+    val themeColors = if (darkEnabled) {
+        darkColors(
+            primary = primaryColor,
+            onPrimary = onPrimaryColor,
+            background = backgroundColor,
+            onBackground = onBackgroundColor,
+            surface = surfaceColor,
+        )
+    } else {
+        darkColors(
+            primary = primaryColor,
+            onPrimary = onPrimaryColor,
+            background = backgroundColor,
+            onBackground = onBackgroundColor,
+            surface = surfaceColor,
+        )
+    }
+
     MaterialTheme(
-        colors = colors,
+        colors = themeColors,
         content = content
     )
 }
