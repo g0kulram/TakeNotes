@@ -1,5 +1,6 @@
 package com.gokul.takenotes
 
+import okio.FileSystem
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
@@ -7,3 +8,7 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+
+actual fun getFileSystem(): FileSystem {
+    return FileSystem.SYSTEM
+}

@@ -72,6 +72,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
             implementation(libs.multiplatform.settings.no.arg)
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+            implementation("com.squareup.okio:okio:3.10.2")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

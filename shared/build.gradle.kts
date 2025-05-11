@@ -41,6 +41,7 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            implementation("com.squareup.okio:okio:3.10.2")
             // put your Multiplatform dependencies here
         }
     }
