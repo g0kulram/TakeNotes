@@ -1,5 +1,6 @@
 package com.gokul.takenotes.sidemenu
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
@@ -23,8 +25,13 @@ import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,6 +45,14 @@ fun SideMenuContent(
     isDarkTheme: Boolean,
     onThemeToggle: () -> Unit
 ) {
+    val viewModel = SideMenuViewModel()
+    val showSavedNotes = viewModel.showSavedNotes.collectAsState()
+    val savedNotes = viewModel.savedNotes.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getSavedNotes()
+    }
+
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -52,7 +67,43 @@ fun SideMenuContent(
         ) {
             MenuHeader()
 
+            Spacer(modifier = Modifier.height(10.dp))
+
+            SideMenuButton(
+                title = "Saved Notes",
+                menuIcon = Icons.Default.Folder,
+                onClick = { viewModel.toggleShowSavedNotes() },
+                modifier = Modifier
+                    .height(40.dp)
+                    .fillMaxWidth()
+            )
+            AnimatedVisibility(visible = showSavedNotes.value) {
+                SavedNotesList(
+                    notesList = savedNotes.value,
+                    modifier = Modifier
+                        .padding(start = 30.dp)
+                )
+            }
+
             Spacer(modifier = Modifier.weight(1f))
+
+            SideMenuButton(
+                menuIcon = Icons.Default.Settings,
+                title = "Settings",
+                onClick = {},
+                modifier = Modifier
+                    .height(40.dp)
+                    .fillMaxWidth()
+            )
+
+            SideMenuButton(
+                menuIcon = Icons.Default.Info,
+                title = "About Take Notes",
+                onClick = {},
+                modifier = Modifier
+                    .height(40.dp)
+                    .fillMaxWidth()
+            )
 
             ThemeRow(
                 isDarkTheme = isDarkTheme,

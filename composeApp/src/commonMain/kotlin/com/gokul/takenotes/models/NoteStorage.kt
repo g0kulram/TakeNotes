@@ -3,7 +3,6 @@ package com.gokul.takenotes.models
 import com.gokul.takenotes.getFileSystem
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
 
@@ -21,7 +20,7 @@ object NoteStorage {
         }
     }
 
-    suspend fun loadNotes(): List<Notes> {
+    fun loadNotes(): List<Notes> {
         return if (fileSystem.exists(filePath)) {
             val content = fileSystem.read(filePath) { readUtf8() }
             json.decodeFromString(content)

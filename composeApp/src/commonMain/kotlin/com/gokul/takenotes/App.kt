@@ -11,6 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import com.gokul.takenotes.editor.EditorMain
 import com.gokul.takenotes.sidemenu.SideMenuContent
 import com.gokul.takenotes.theme.AppTheme
+import com.gokul.takenotes.theme.Bool
 import com.gokul.takenotes.theme.LocalThemeController
 import com.gokul.takenotes.theme.ThemeController
 import com.gokul.takenotes.theme.ThemeManager

@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    kotlin("plugin.serialization") version "2.1.10"
 }
 
 kotlin {
@@ -58,6 +59,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.ui.tooling.preview)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -72,9 +74,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
             implementation(libs.multiplatform.settings.no.arg)
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-            implementation("com.squareup.okio:okio:3.10.2")
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.okio)
+            implementation(libs.kotlinx.datetime)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -115,6 +117,7 @@ dependencies {
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.foundation.android)
     debugImplementation(compose.uiTooling)
+    debugImplementation(libs.androidx.ui.tooling)
 }
 
 compose.desktop {
