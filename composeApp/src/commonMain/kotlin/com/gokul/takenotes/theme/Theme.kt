@@ -75,7 +75,7 @@ fun AppTheme(
             surface = surfaceColor,
         )
     } else {
-        darkColors(
+        lightColors(
             primary = primaryColor,
             onPrimary = onPrimaryColor,
             background = backgroundColor,

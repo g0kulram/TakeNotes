@@ -55,4 +55,28 @@ class EditorViewModel:ViewModel() {
         _noteTitle.value = null
         _noteText.value = ""
     }
+
+    private val _showSaveAsPopup = MutableStateFlow(false)
+    val showSaveAsPopup = _showSaveAsPopup.asStateFlow()
+
+    fun displaySaveAsPopup() {
+        _showSaveAsPopup.value = true
+    }
+
+    fun hideSaveAsPopup() {
+        _showSaveAsPopup.value = false
+    }
+
+    private val _saveAsTitle = MutableStateFlow("")
+    val saveAsTitle = _saveAsTitle.asStateFlow()
+
+    fun updateSaveAsTitle(title: String) {
+        _saveAsTitle.value = title
+    }
+
+    fun onSaveClicked() {
+        if (_note.value == null) {
+            displaySaveAsPopup()
+        }
+    }
 }
