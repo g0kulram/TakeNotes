@@ -7,10 +7,6 @@ import okio.Path
 import okio.Sink
 import okio.Source
 
-class WasmPlatform: Platform {
-    override val name: String = "Web with Kotlin/Wasm"
-}
-
 class WasmFS: FileSystem() {
     override fun appendingSink(file: Path, mustExist: Boolean): Sink {
         TODO("Not yet implemented")
@@ -66,8 +62,12 @@ class WasmFS: FileSystem() {
 
 }
 
-actual fun getPlatform(): Platform = WasmPlatform()
+actual fun getPlatform(): Platform = Platform.WASM
 
 actual fun getFileSystem(): FileSystem {
     return WasmFS()
+}
+
+actual fun getNoteStoragePath(): Path {
+    TODO("Not yet implemented")
 }

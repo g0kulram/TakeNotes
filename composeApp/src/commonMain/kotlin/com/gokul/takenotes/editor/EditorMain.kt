@@ -40,11 +40,11 @@ import com.gokul.takenotes.theme.LocalThemeController
 
 @Composable
 fun EditorMain(
+    viewModel: EditorViewModel,
     onOpenMenu : () -> Unit
 ) {
-    val viewModel = remember{ EditorViewModel() }
+    val title = viewModel.noteTitle.collectAsState()
     val text = viewModel.noteText.collectAsState()
-    val themeController = LocalThemeController.current
 
     Scaffold(
         floatingActionButton = {
@@ -69,7 +69,7 @@ fun EditorMain(
                                 color = MaterialTheme.colors.onBackground
                             )
                             Text(
-                                text = "Untitled",
+                                text = title.value ?: "Untitled",
                                 color = Color.Gray,
                                 fontSize = 12.sp
                             )

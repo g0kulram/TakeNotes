@@ -1,6 +1,7 @@
 package com.gokul.takenotes.models
 
 import com.gokul.takenotes.getFileSystem
+import com.gokul.takenotes.getNoteStoragePath
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okio.Path
@@ -9,7 +10,7 @@ import okio.Path.Companion.toPath
 object NoteStorage {
     private val json = Json { prettyPrint = true }
     private val fileSystem = getFileSystem()
-    private val filePath: Path = "notes.json".toPath()
+    private val filePath: Path = getNoteStoragePath()
 
     suspend fun saveNote(note: Notes) {
         val notes = loadNotes().toMutableList()

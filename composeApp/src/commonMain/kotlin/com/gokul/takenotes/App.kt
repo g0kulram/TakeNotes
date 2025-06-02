@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import com.gokul.takenotes.editor.EditorMain
+import com.gokul.takenotes.editor.EditorViewModel
 import com.gokul.takenotes.sidemenu.SideMenuContent
 import com.gokul.takenotes.theme.AppTheme
 import com.gokul.takenotes.theme.Bool
@@ -37,6 +38,8 @@ fun App() {
         )
     }
 
+    val editorViewModel = remember{ EditorViewModel() }
+
     CompositionLocalProvider(LocalThemeController provides themeController) {
         AppTheme(
             darkEnabled = themeController.isDark.value
@@ -44,12 +47,24 @@ fun App() {
             ModalNavigationDrawer(
                 drawerState = drawerState,
                 drawerContent = {
-                    SideMenuContent(isDarkTheme = themeController.isDark.value) {
-                        themeController.toggle()
-                    }
+                    SideMenuContent(
+                        isDarkTheme = themeController.isDark.value,
+                        presentNotes = {
+                            editorViewModel.getNote(it)
+                            scope.launch { drawerState.close() }
+                        },
+                        createNewNotes = {
+                            editorViewModel.createNote()
+                            scope.launch { drawerState.close() }
+                        },
+                        onThemeToggle = {
+                            themeController.toggle()
+                        }
+                    )
                 }
             ) {
                 EditorMain(
+                    viewModel = editorViewModel,
                     onOpenMenu = { scope.launch { drawerState.open() } }
                 )
             }

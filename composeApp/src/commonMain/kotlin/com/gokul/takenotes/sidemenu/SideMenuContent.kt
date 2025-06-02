@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.gokul.takenotes.models.Notes
 import org.jetbrains.compose.resources.painterResource
 import takenotes.composeapp.generated.resources.Res
 import takenotes.composeapp.generated.resources.ic_take_notes
@@ -43,7 +45,9 @@ import takenotes.composeapp.generated.resources.ic_take_notes
 @Composable
 fun SideMenuContent(
     isDarkTheme: Boolean,
-    onThemeToggle: () -> Unit
+    onThemeToggle: () -> Unit,
+    presentNotes: (Notes) -> Unit,
+    createNewNotes: () -> Unit
 ) {
     val viewModel = SideMenuViewModel()
     val showSavedNotes = viewModel.showSavedNotes.collectAsState()
@@ -70,9 +74,23 @@ fun SideMenuContent(
             Spacer(modifier = Modifier.height(10.dp))
 
             SideMenuButton(
+                menuIcon = Icons.Default.NoteAdd,
+                title = "Create Note",
+                onClick = {
+                    createNewNotes()
+                },
+                modifier = Modifier
+                    .height(40.dp)
+                    .fillMaxWidth()
+            )
+
+            SideMenuButton(
                 title = "Saved Notes",
                 menuIcon = Icons.Default.Folder,
-                onClick = { viewModel.toggleShowSavedNotes() },
+                onClick = {
+                    viewModel.getSavedNotes()
+                    viewModel.toggleShowSavedNotes()
+                },
                 modifier = Modifier
                     .height(40.dp)
                     .fillMaxWidth()
@@ -80,6 +98,10 @@ fun SideMenuContent(
             AnimatedVisibility(visible = showSavedNotes.value) {
                 SavedNotesList(
                     notesList = savedNotes.value,
+                    onNoteClick = {
+                        presentNotes(it)
+                        viewModel.toggleShowSavedNotes()
+                    },
                     modifier = Modifier
                         .padding(start = 30.dp)
                 )

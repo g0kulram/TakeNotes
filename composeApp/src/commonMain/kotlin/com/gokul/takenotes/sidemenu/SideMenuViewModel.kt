@@ -22,6 +22,7 @@ class SideMenuViewModel: ViewModel() {
     fun getSavedNotes() {
         viewModelScope.launch {
             _savedNotes.value = NoteStorage.loadNotes()
+            println("Notes: ${savedNotes.value.size} \n Titles: ${NoteStorage.loadNotes().map { it.title }}")
         }
     }
 }
